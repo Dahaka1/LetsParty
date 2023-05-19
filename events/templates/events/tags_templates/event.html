@@ -1,0 +1,35 @@
+<a id="event_link" href="{% url 'event' EVENT.pk %}"><h4>Вечеринка <b>{{ EVENT.date }}, {{ EVENT.time }}</b></h4></a>
+<h5>Организатор {{ EVENT.creator }}</h5>
+<h5>Место: <b>{{ EVENT.get_location }}</b></h5>
+
+<ul id="EVENT_params">
+    <li>
+        <span class="sub_list_title">Участников:</span> <b>{{ EVENT.users.all|length }} из {{ EVENT.members_amount }}</b>
+    </li>
+    <li>
+        <span class="sub_list_title">Возрастная группа:</span> <b>{{ EVENT.age_group }}</b>
+    </li>
+    <li>
+        {% if EVENT.preferred_gender %}
+        <span class="sub_list_title">Предпочтительный гендер:</span> <b>{{ EVENT.preferred_gender }}</b>
+        {% else %}
+            <span class="sub_list_title">Предпочтительный гендер:</span> <b>любой</b>
+        {% endif %}
+    </li>
+    <li>
+        <span class="sub_list_title">Субкультура:</span> <b>{{ EVENT.subculture }}</b>
+    </li>
+    <li>
+        <span class="sub_list_title">Музыка:</span> {{ EVENT.music_genre }}
+    </li>
+    <li>
+        <span class="sub_list_title">Бюджет:</span> <b>{{ EVENT.budget }} рублей</b>
+    </li>
+</ul>
+{% if EVENT.tags.all %}
+    <ul class="list-inline">
+        {% for tag in EVENT.tags.all %}
+            <li class="list-inline-item">{{ tag }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

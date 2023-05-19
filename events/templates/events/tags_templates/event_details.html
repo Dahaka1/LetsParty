@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-members-list" data-toggle="list" href="#list-members" role="tab" aria-controls="home">Участники</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="list-members" role="tabpanel" aria-labelledby="list-members-list">
+          {% if EVENT.users.all.exists %}
+            <ul class="list-group">
+              {% for member in EVENT.users.all %}
+                <li class="list-group-item list-group-item-dark">{{ member.party_member_params }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            Участников пока нет ☹️
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

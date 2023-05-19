@@ -92,7 +92,8 @@ class Party(models.Model):  # paid events only
 		verbose_name="Бюджет"
 	)
 	users = models.ManyToManyField(
-		User
+		User,
+		verbose_name="Участники"
 	)  # users who did pay for party
 	is_closed = models.BooleanField(
 		default=False,

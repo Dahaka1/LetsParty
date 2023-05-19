@@ -77,7 +77,7 @@ class AgeGroup(models.Model):
 		verbose_name_plural = verbose_name
 
 	def __str__(self):
-		return f'{self.title} ({self.ages_range} лет)'
+		return self.title
 
 	def get_users(self) -> list[User]:
 		return list(User.objects.filter(age_group=self))
@@ -129,6 +129,14 @@ class User(models.Model):
 		verbose_name="Теги",
 		blank=True)
 
+	subculture = models.ForeignKey(
+		SubCulture,
+		on_delete=models.PROTECT,
+		verbose_name="Субкультура",
+		default=None,
+		null=True
+	)
+
 	class Meta:
 		ordering = ["-registration_date"]
 		verbose_name = "Пользователи"
@@ -152,6 +160,9 @@ class User(models.Model):
 
 	def get_tags(self) -> list:
 		return list(self.tags.all())
+
+	def party_member_params(self) -> str:
+		return f'{self.nickname}: {self.age_group}, субкультура: {self.subculture or "нет"}'
 
 
 class Creator(models.Model):
@@ -201,11 +212,6 @@ class UserPreference(models.Model):
 		choices=main.business_logics.config("DRINKS_TYPES"),
 		blank=False,
 		verbose_name="Напиток"
-	)
-	subculture = models.ForeignKey(
-		SubCulture,
-		on_delete=models.PROTECT,
-		verbose_name="Субкультура"
 	)
 
 	class Meta:

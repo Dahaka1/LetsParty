@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load events_tags %}
+
+{% block content %}
+    {% get_event_by_id event_id=EVENT as event %}
+    <div id="event_details">
+        {% show_event event_id=event.id %}
+    </div>
+    <div id="details_navigation">
+        {% show_event_details event_id=event.id %}
+    </div>
+
+{% endblock content %}

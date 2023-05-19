@@ -43,6 +43,10 @@ a.header {
     color: inherit;
 }
 
+a#event_link {
+    color: inherit;
+}
+
 div#main_menu {
     display: flex;
 }
@@ -51,7 +55,7 @@ a.main_menu {
     margin: auto;
 }
 
-h1.display-4{
+h1.display-4 {
     text-align: center;
 }
 
@@ -61,4 +65,19 @@ p {
 
 span.sub_list_title {
     color: #9B9B9B;
+}
+
+div#check_all_events, div#event_details {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+div.tab-pane {
+    color: #9B9B9B;
+}
+
+
+p#dots {
+    font-size: 50px;
 }

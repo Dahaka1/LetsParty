@@ -1,0 +1,7 @@
+{% extends 'main/base.html' %}
+{% load events_tags %}
+
+{% block content %}
+    <h1 class="display-4">Предстоящие мероприятия</h1>
+    {% show_events list_type='UPCOMING' %}
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% load events_tags %}
+{% if EVENTS_LIST %}
+    <br>
+    <ul id="events_list">
+        {% for event in EVENTS_LIST %}
+            <li>
+                {% show_event event_id=event.pk %}
+            </li>
+        <a href="{% url 'event' event.pk %}">
+            <button type="button" class="btn btn-secondary btn-sm">Подробнее...</button>
+        </a>
+        <hr>
+        {% endfor %}
+    </ul>
+    {% if OUTPUT_TYPE == "NEAREST" and EVENTS_LIST_LENGTH > 3 %}
+        <br>
+        <div id="check_all_events">
+            <p id="dots">...</p>
+            <a href="{% url 'events_page' %}"><button type="button" class="btn btn-dark">Смотреть все</button></a>
+        </div>
+    {% endif %}
+{% else %}
+    <hr>
+    <h5 style="text-align:center;">Пока нет мероприятий ☹️</h5>
+{% endif %}

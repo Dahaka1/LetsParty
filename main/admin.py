@@ -12,10 +12,10 @@ models = [
 
 
 class UserAdmin(admin.ModelAdmin):
-	list_display = ("id", "nickname", "phone_number", "district", "last_callback")
+	list_display = ("id", "nickname", "phone_number", "district", "last_callback", "subculture")
 	list_display_links = ("id", "nickname")
-	search_fields = ("phone_number", "district")
-	list_filter = ("last_callback", "tags")
+	search_fields = ("phone_number", "district", "subculture")
+	list_filter = ("last_callback", "tags", "subculture")
 
 
 class CreatorAdmin(admin.ModelAdmin):
@@ -44,10 +44,10 @@ class AgeGroupAdmin(admin.ModelAdmin):
 
 
 class UserPreferenceAdmin(admin.ModelAdmin):
-	list_display = ("user", "music_genre", "drink", "subculture")
+	list_display = ("user", "music_genre", "drink")
 	list_display_links = ("user", )
 	search_fields = ("user", )
-	list_filter = ("drink", "music_genre", "subculture")
+	list_filter = ("drink", "music_genre")
 
 
 admin.site.register(User, UserAdmin)
