@@ -123,7 +123,9 @@ class User(models.Model):
 		AgeGroup,
 		on_delete=models.PROTECT,
 		default=None,
-		verbose_name="Возрастная группа"
+		verbose_name="Возрастная группа",
+		null=True,
+		blank=True
 	)
 	tags = TaggableManager(
 		verbose_name="Теги",
@@ -155,7 +157,7 @@ class User(models.Model):
 				rng = group.get_range()
 				if self.age in rng:
 					if self.age_group is None or not self.age_group in rng:
-						self.age_group = group.id
+						self.age_group = group
 						self.save()
 
 	def get_tags(self) -> list:

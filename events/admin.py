@@ -12,6 +12,7 @@ class PartyAdmin(admin.ModelAdmin):
 	list_display_links = ("id", "date")
 	search_fields = ("creator", "date", "time")
 	list_filter = ("date", "time", "members_amount", "tags", "is_closed")
+	prepopulated_fields = {"slug": ("creator", "date", "time")}
 
 
 class PartyLocationAdmin(admin.ModelAdmin):

@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <h1 class="display-4">{{ TITLE }}</h1>
+    <form class="event_post" action="{% url 'create_event' %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for f in FORM %}
+            <p><label for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+            <div class="form-errors">{{ f.errors }}</div>
+        {% endfor %}
+        <button type="submit">Запланировать</button>
+    </form>
+{% endblock content %}

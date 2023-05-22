@@ -4,7 +4,7 @@ from main.models import Creator, AgeGroup, SubCulture, District, User
 from taggit.managers import TaggableManager
 import main.business_logics
 from datetime import date, timedelta, datetime
-
+from django.urls import reverse
 
 class PartyLocation(models.Model):
 	district = models.ForeignKey(
@@ -93,11 +93,18 @@ class Party(models.Model):  # paid events only
 	)
 	users = models.ManyToManyField(
 		User,
-		verbose_name="Участники"
+		verbose_name="Участники",
+		blank=True
 	)  # users who did pay for party
 	is_closed = models.BooleanField(
 		default=False,
 		verbose_name="Набор закрыт"
+	)
+	slug = models.SlugField(
+		max_length=255,
+		unique=True,
+		db_index=True,
+		verbose_name="URL"
 	)
 
 	class Meta:
@@ -106,22 +113,17 @@ class Party(models.Model):  # paid events only
 		verbose_name = "Мероприятия"
 		verbose_name_plural = verbose_name
 
-	def get_absolute_url2(self):  # needs to define for using django reverse
-		pass
+	def get_absolute_url(self):
+		return reverse('event', kwargs={"event_slug": self.slug})
 
 	def __str__(self):
 		return f'ID: {self.id}, {self.date}, {str(self.time)[:-3]} (организатор: {self.creator.user.nickname})'
 
-	def define_age_group(self):  # when creating
-		if self.age_group is None:
-			self.age_group = self.creator.user.age_group
-			self.save()
-
-	def get_location(self):
+	def get_location(self) -> str:
 		try:
 			return next(iter(PartyLocation.objects.filter(pk=self)))
 		except StopIteration:
-			pass
+			return "не определено"
 
 	@staticmethod
 	def all() -> QuerySet:
@@ -131,3 +133,7 @@ class Party(models.Model):  # paid events only
 		dt = datetime.combine(self.date, self.time)
 		return dt
 
+	def define_params(self):
+		self.slug = f"{self.creator.id}-{self.date.strftime('%d%m%Y')}-{self.time.strftime('%H%M%S')}"
+		self.age_group = self.creator.user.age_group
+		self.save()

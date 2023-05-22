@@ -28,6 +28,17 @@
                 <a class="main_menu" href="{% url 'registering_page' %}"><button class="btn btn-info">Регистрация</button></a>
                 <a class="main_menu" href="{% url 'logining_page' %}"><button class="btn btn-info">Войти</button></a>
             </div>
+            <br>
+            <div id="sub_menu">
+                {% sub_menu as SUB_MENU %}
+                {% for menu_button in SUB_MENU %}
+                    {% if menu_button.url_name != '#' %}
+                        <a class="sub_menu_links" href="{% url menu_button.url_name %}">{{ menu_button.text }}</a>
+                    {% else %}
+                        <a class="sub_menu_links" href="#">{{ menu_button.text }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
         <br><br>
         {% block content %}

@@ -67,10 +67,14 @@ span.sub_list_title {
     color: #9B9B9B;
 }
 
-div#check_all_events, div#event_details {
+div#check_all_events, div#event_details, div#sub_menu, form.event_post {
     display: flex;
     flex-flow: column;
     align-items: center;
+}
+
+a.sub_menu_links {
+    text-decoration: inherit;
 }
 
 div.tab-pane {
@@ -80,4 +84,17 @@ div.tab-pane {
 
 p#dots {
     font-size: 50px;
+}
+
+ul.list-inline {
+    text-align: center;
+    color: #9B9B9B;
+}
+
+li.list-inline-item {
+    text-decoration: underline;
+}
+
+div.form-errors {
+    color: yellow;
 }

@@ -1,4 +1,4 @@
-<a id="event_link" href="{% url 'event' EVENT.pk %}"><h4>Вечеринка <b>{{ EVENT.date }}, {{ EVENT.time }}</b></h4></a>
+<a id="event_link" href="{% url 'event' EVENT.slug %}"><h4>Вечеринка <b>{{ EVENT.date }}, {{ EVENT.time }}</b></h4></a>
 <h5>Организатор {{ EVENT.creator }}</h5>
 <h5>Место: <b>{{ EVENT.get_location }}</b></h5>
 

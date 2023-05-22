@@ -34,8 +34,8 @@ def get_upcoming_events() -> Optional[list[Party]]:
 @register.simple_tag()
 def get_nearest_events() -> Optional[list[Party]]:
 	events = get_upcoming_events()
-	out = list(filter(lambda event: event.datetime() - datetime.now() <= timedelta(days=5), events))
-	if any(out):
+	out = list(filter(lambda event: event.datetime() - datetime.now() <= timedelta(days=5), events)) if events else None
+	if not out is None and any(out):
 		return out
 
 
@@ -64,8 +64,9 @@ def show_events(list_type: str, event_id=None) -> dict[str, list[Party] | QueryS
 		"SPECIFIC": get_event_by_id(event_id)
 	}
 	events = list_types[list_type]() if not list_type == "SPECIFIC" else list_types[list_type]
-	if list_type == "NEAREST":
-		events = events[:3]
-	return {"EVENTS_LIST": events,
-			"OUTPUT_TYPE": list_type,
-			"EVENTS_LIST_LENGTH": len(events) if not list_type == "SPECIFIC" else 1}
+	if not events is None and any(events):
+		if list_type == "NEAREST":
+			events = events[:3]
+		return {"EVENTS_LIST": events,
+				"OUTPUT_TYPE": list_type,
+				"EVENTS_LIST_LENGTH": len(events) if not list_type == "SPECIFIC" else 1}
